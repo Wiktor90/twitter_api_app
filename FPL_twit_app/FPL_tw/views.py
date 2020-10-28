@@ -1,4 +1,31 @@
 from django.shortcuts import render
+import tweepy
+from .credentials import consumer_key, consumer_secret, access_token, access_token_secret
 
-def main(request):
-    return render(request, 'FPL_tw/main.html')
+# my authorization to twitter api
+def get_api_auth():
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_token, access_token_secret)
+    api = tweepy.API(auth)
+    return api
+
+def get_tweets_from_timeline(request):
+    api = get_api_auth()
+
+    #get list of status objects
+    timeline = api.user_timeline(screen_name='ManCity', count=10, tweet_mode="extended")
+    
+    #get list of status(tweet) full text
+    tweet_full_text = [status.retweeted_status.full_text if 'retweeted_status' in status._json else status.full_text for status in timeline]
+    tweet_full_text = [text.split("|")[0] if "|" in text else text for text in tweet_full_text]
+    
+    #get list of status(tweet) creation date
+    tweet_created_at = [status.created_at for status in timeline]
+
+    # get list of links to each status(tweet) included status id + screen_name. They are a status link constructors.
+    tweet_link = [(status.author.screen_name, status.id) for status in timeline]
+
+    tweets = zip(tweet_created_at, tweet_full_text, tweet_link)
+    
+    context = {'tweets':tweets}
+    return render(request, 'FPL_tw/main.html', context)

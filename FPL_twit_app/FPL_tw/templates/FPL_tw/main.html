@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FPL Tweet Scraper</title>
+    <title>FPL Tweets Scraper</title>
 
     <!-- Bootstrap, Font, Static CSS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&amp;subset=latin-ext">
@@ -14,5 +14,12 @@
 
 <body>
     <h2>FPL Tweets </h2>
+    {% for date, text, link in tweets %}
+        <ul>
+            <li>{{ date }}</li>
+            <li>{{ text }}</li>
+            <li><a href="https://twitter.com/{{ link.0 }}/status/{{ link.1 }}" target="_blank">Check on Twitter</a></li>
+        </ul>
+    {% endfor %}
 </body>
 </html>
