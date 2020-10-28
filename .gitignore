@@ -5,6 +5,9 @@ __pycache__/
 
 # C extensions
 *.so
+.txt/
+.txt
+*.txt
 
 # Distribution / packaging
 .Python
@@ -134,3 +137,8 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# Files
+credentials.py
+./tw_api/FPL_twit_app/FPL_tw/credentials.py
+./FPL_tw/credentials.py
