@@ -17,10 +17,21 @@
 
     <ul>
     {% for club in clubs %}
-        <li><a href="{% url 'tweets' pk=club.pk %}">{{ club.name }}</a></li>
+        {% if club.kind == 'club' %}
+            <li><a href="{% url 'tweets' pk=club.pk %}">{{ club.name }}</a></li>
+        {% endif %}
     {% endfor %}
     </ul>
 
+    <br>
+    <h5>####################################################################</h5>
+
+    {% for club in clubs %}
+        {% if club.kind != 'club' %}
+            <li><a href="{% url 'tweets' pk=club.pk %}">{{ club.name }}</a></li>
+        {% endif %}
+    {% endfor %}
+    </ul>
     <br>
     <h5>####################################################################</h5>
 
