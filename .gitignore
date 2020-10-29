@@ -138,7 +138,9 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-# Files
+# Files & Folders
 credentials.py
 ./tw_api/FPL_twit_app/FPL_tw/credentials.py
 ./FPL_tw/credentials.py
+./media
+./media/img
