@@ -1,0 +1,13 @@
+{% extends 'FPL_tw/main.html' %}
+{% load static %}
+{% block content %}
+
+{% for date, text, link in tweets %}
+<ul>
+    <li>{{ date }}</li>
+    <li>{{ text }}</li>
+    <li><a href="https://twitter.com/{{ link.0 }}/status/{{ link.1 }}" target="_blank">Check on Twitter</a></li>
+</ul>
+{% endfor %}
+
+{% endblock %}

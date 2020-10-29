@@ -1,6 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from .models import Club
 import tweepy
 from .credentials import consumer_key, consumer_secret, access_token, access_token_secret
+
+
+def main_view (request):
+    clubs = Club.objects.all()
+
+    context = {'clubs':clubs}
+    return render(request, 'FPL_tw/main.html', context)
+
 
 # my authorization to twitter api
 def get_api_auth():
@@ -9,11 +18,15 @@ def get_api_auth():
     api = tweepy.API(auth)
     return api
 
-def get_tweets_from_timeline(request):
+
+def get_tweets_from_timeline(request, pk): # dodac dynamiczny parametr name
     api = get_api_auth()
 
+    #create obj-Club instance
+    club = get_object_or_404(Club, pk=pk)
+
     #get list of status objects
-    timeline = api.user_timeline(screen_name='ManCity', count=10, tweet_mode="extended")
+    timeline = api.user_timeline(screen_name=club.screen_name, count=10, tweet_mode="extended")
     
     #get list of status(tweet) full text
     tweet_full_text = [status.retweeted_status.full_text if 'retweeted_status' in status._json else status.full_text for status in timeline]
@@ -28,4 +41,4 @@ def get_tweets_from_timeline(request):
     tweets = zip(tweet_created_at, tweet_full_text, tweet_link)
     
     context = {'tweets':tweets}
-    return render(request, 'FPL_tw/main.html', context)
+    return render(request, 'FPL_tw/tweets.html', context)
