@@ -42,3 +42,4 @@ def get_tweets_from_timeline(request, pk): # dodac dynamiczny parametr name
     
     context = {'tweets':tweets}
     return render(request, 'FPL_tw/tweets.html', context)
+
