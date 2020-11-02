@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Club
-import tweepy
+import tweepy, datetime, time
 from .credentials import consumer_key, consumer_secret, access_token, access_token_secret
 from django.core.paginator import Paginator
 
@@ -20,6 +20,23 @@ def get_api_auth():
     return api
 
 
+# grab all tweets from last 24h from user timeline
+def grab_last_24h_tweets(api, username):
+    tweets = []
+    page = 1
+    end = False
+    while True:
+        timeline = api.user_timeline(screen_name=username, page=page, tweet_mode="extended")
+        for status in timeline:
+            if (datetime.datetime.now() - status.created_at).days < 1:
+                tweets.append(status)
+            else:
+                end = True
+                return tweets
+        if not end:
+            page += 1
+
+
 def get_tweets_from_timeline(request, pk):
     api = get_api_auth()
 
@@ -27,7 +44,8 @@ def get_tweets_from_timeline(request, pk):
     club = get_object_or_404(Club, pk=pk)
 
     #get list of status objects
-    timeline = api.user_timeline(screen_name=club.screen_name, count=10, tweet_mode="extended")
+    #timeline = api.user_timeline(screen_name=club.screen_name, count=10, tweet_mode="extended")
+    timeline = grab_last_24h_tweets(api, club.screen_name)
     
     #get list of status(tweet) full text
     tweet_full_text = [status.retweeted_status.full_text if 'retweeted_status' in status._json else status.full_text for status in timeline]
@@ -42,7 +60,7 @@ def get_tweets_from_timeline(request, pk):
     tweets = zip(tweet_created_at, tweet_full_text, tweet_link)
 
     # Pagination
-    p = Paginator([item for item in tweets], 3)
+    p = Paginator([item for item in tweets], 5)
     page = request.GET.get('page')
     tweets = p.get_page(page)
     
