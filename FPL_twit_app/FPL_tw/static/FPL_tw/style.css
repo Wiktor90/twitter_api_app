@@ -1,5 +1,123 @@
-body{
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #efefef;
+}
+
+.wrapper{
+    align-items: stretch;
+    width: 100%;
+    display: flex;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 100vh;
+    background: #192628;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #131d1f;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #233538;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+#sidebar ul li a:hover {
+    color: #316169;
+    background: #fff;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: #fff;
+    background: #293d41;
+}
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #293d41;
+}
+
+/* Tweets body*/
+
+.main-theme
+{
+    margin: 20px auto;
+    padding:20px;
+    background-color: rgba(19, 35, 47, 0.9);
+    border-radius: 3px;
+    box-shadow: 6px 2px 30px 0px rgba(0,0,0,0.75);
     color: #efefef;
-    background-color: rgb(77, 56, 56);
-    margin: 0
+}
+
+.task-row
+{
+    background-color: #1c1f1d;
+    margin-bottom: 18px;
+    padding: 14px;
+    border-radius: 3px;
+    color: #efefef;
+    font-size: 16px;
+}
+
+.date-row
+{
+    font-size: 14px;
+    color: #61bb8b;
+}
+
+.tw-link
+{
+    text-decoration: none;
+    color: #2641bd;
+    font-size: 13px;
+
+}
+
+.tw-link:hover
+{
+    color: #4776f5;
 }
