@@ -18,21 +18,21 @@
             <!-- PAGINATION -->
             <div class="pagination">
                 {% if tweets.has_previous %}
-                    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    <a class="btn btn-outline-info mb-2" href="?page=1">First</a>
+                    <a class="btn btn-outline-info mb-2" href="?page={{ page_obj.previous_page_number }}">Previous</a>
                 {% endif %}
 
                 {% for num in tweets.paginator.page_range %}
                     {% if tweets.number == num %}
-                        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                        <a class="btn btn-info mb-2" href="?page={{ num }}">{{ num }}</a>
                     {% elif num > tweets.number|add:'-3' and num < tweets.number|add:'3' %}
-                        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                        <a class="btn btn-outline-info mb-2" href="?page={{ num }}">{{ num }}</a>
                     {% endif %}
                 {% endfor %}
 
                 {% if tweets.has_next %}
-                    <a class="btn btn-outline-info mb-4" href="?page={{ tweets.next_page_number }}">Next</a>
-                    <a class="btn btn-outline-info mb-4" href="?page={{ tweets.paginator.num_pages }}">Last</a>
+                    <a class="btn btn-outline-info mb-2" href="?page={{ tweets.next_page_number }}">Next</a>
+                    <a class="btn btn-outline-info mb-2" href="?page={{ tweets.paginator.num_pages }}">Last</a>
                 {% endif %}
             </div>
         </div>
