@@ -121,3 +121,10 @@ ul ul a {
 {
     color: #4776f5;
 }
+
+.pagination
+{
+    display: flex;
+    margin-top: 12px;
+    justify-content: center;
+}

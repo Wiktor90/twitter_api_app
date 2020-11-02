@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Club
 import tweepy
 from .credentials import consumer_key, consumer_secret, access_token, access_token_secret
+from django.core.paginator import Paginator
 
 
 def main_view (request):
@@ -19,7 +20,7 @@ def get_api_auth():
     return api
 
 
-def get_tweets_from_timeline(request, pk): # dodac dynamiczny parametr name
+def get_tweets_from_timeline(request, pk):
     api = get_api_auth()
 
     #create obj-Club instance
@@ -39,6 +40,11 @@ def get_tweets_from_timeline(request, pk): # dodac dynamiczny parametr name
     tweet_link = [(status.author.screen_name, status.id) for status in timeline]
 
     tweets = zip(tweet_created_at, tweet_full_text, tweet_link)
+
+    # Pagination
+    p = Paginator([item for item in tweets], 3)
+    page = request.GET.get('page')
+    tweets = p.get_page(page)
     
     context = {'tweets':tweets}
     return render(request, 'FPL_tw/tweets.html', context)
