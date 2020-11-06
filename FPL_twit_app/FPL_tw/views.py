@@ -64,6 +64,9 @@ def get_tweets_from_timeline(request, pk):
     page = request.GET.get('page')
     tweets = p.get_page(page)
     
-    context = {'tweets':tweets}
+    context = {
+        'tweets':tweets,
+        'club':club,
+        }
     return render(request, 'FPL_tw/tweets.html', context)
 

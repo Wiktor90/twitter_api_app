@@ -5,6 +5,9 @@
 <div class="container">
     <div class="d-flex justify-content-center m-4">
         <div class="main-theme ml-4">
+            <div class="mb-3">
+                <h5>{{ club.name }} <span class="club-header"> - tweest from last 24h.</span></h5>
+            </div>
             {% for date, text, link in tweets %}
             <div class="task-row">
                 <ul class="list-unstyled">
